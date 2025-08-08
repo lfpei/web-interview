@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box {
+      height: 100px;
+      width: 100px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: antiquewhite;
+    }
+  </style>
+</head>
+<body>
+  <div class="box"></div>
+  <script>
+    const el = document.querySelector('.box');
+    let topBuffer = 0
+    let leftBuffer = 0
+    let ismoving = false;
+    el.addEventListener('mousedown', (e)=>{
+      ismoving = true;
+      const rect = el.getBoundingClientRect();
+      const { top, left } = rect
+      topBuffer = e.clientY - top
+      leftBuffer = e.clientX - left
+    })
+    el.addEventListener('mousemove', (e)=>{
+      if(!ismoving) return;
+      const top = e.clientY - topBuffer
+      const left = e.clientX - leftBuffer
+      el.style.top = top + 'px'
+      el.style.left = left + 'px'
+    })
+    el.addEventListener('mouseup', ()=>{
+      ismoving = false
+    })
+  </script>
+</body>
+</html>
