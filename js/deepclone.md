@@ -33,26 +33,35 @@ function deepClone(obj){
  * 方案二
  */
 function deepClone(obj){
-  if(typeof obj !== 'object' && Object.is(obj, null)){
-    return obj;
-  }
-  let cloneObj;
-  if(Array.isArray(obj)){
-    cloneObj = [];
-    for(let i = 0; i < obj.length; i++) {
-      cloneObj.push[deepClone(obj)]
+  const set = new Set();
+  function _clone(obj){
+    if(typeof obj !== 'object' || Object.is(obj, null)){
+      return obj;
     }
-  } else if(obj instanceof Map){
-    cloneObj = new Map([...obj])
-  } else if(obj instanceof Set){
-    cloneObj = new Set([...obj])
-  } else {
-    cloneObj = {}
-    Reflect.ownKeys.forEach((key) => {
-      cloneObj[key] = deepClone(obj[key])
-    })
+    let cloneObj;
+    if(Array.isArray(obj)){
+      cloneObj = [];
+      for(let i = 0; i < obj.length; i++) {
+        cloneObj.push[_clone(obj[i])]
+      }
+    } else if(obj instanceof Map){
+      cloneObj = new Map([...obj])
+    } else if(obj instanceof Set){
+      cloneObj = new Set([...obj])
+    } else {
+      cloneObj = {}
+      Reflect.ownKeys(obj).forEach((key) => {
+        if(set.has(obj[key])) {
+          cloneObj[key] = obj[key];
+          return;
+        }
+        set.add(obj[key]);
+        cloneObj[key] = _clone(obj[key])
+      })
+    }
+    return cloneObj;
   }
-  return cloneObj;
+  return _clone(obj);
 }
 ```
 
