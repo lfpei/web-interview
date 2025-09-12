@@ -17,16 +17,25 @@
 */
 function lengthOfLastWord(str) {
 	let subStr = "";
-	for (let i = 0; i < str.length; i++) {
+	// 正向遍历
+	// for (let i = 0; i < str.length; i++) {
+	// 	if (str[i] !== " ") {
+	// 		if (str[i - 1] === " " || i === 0) {
+	// 			subStr = str[i];
+	// 		} else {
+	// 			subStr += str[i];
+	// 		}
+	// 	}
+	// }
+	// 反向遍历
+	for (let i = str.length - 1; i >= 0; i--) {
 		if (str[i] !== " ") {
-			if (str[i - 1] === " " || i === 0) {
-				subStr = str[i];
-			} else {
-				subStr += str[i];
-			}
+			subStr = str[i] + subStr;
+		} else if (subStr.length > 0) {
+			break;
 		}
 	}
 	return subStr.length;
 }
 
-console.log(lengthOfLastWord("luffy is still joyboy"));
+console.log(lengthOfLastWord("Hello World"));
