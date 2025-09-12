@@ -15,7 +15,7 @@
 输出：6
 解释：最后一个单词是长度为 6 的“joyboy”
 */
-function getMaxLenString(str) {
+function lengthOfLastWord(str) {
 	let subStr = "";
 	for (let i = 0; i < str.length; i++) {
 		if (str[i] !== " ") {
@@ -29,4 +29,4 @@ function getMaxLenString(str) {
 	return subStr.length;
 }
 
-console.log(getMaxLenString("luffy is still joyboy"));
+console.log(lengthOfLastWord("luffy is still joyboy"));
